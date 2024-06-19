@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Namaste, {{user.name}} ji!</h1>
+            <div>
+                <p>Rank: {{user.rank}}</p>
+                <p>Karma Points: {{user.karmaPoints}}</p>
+            </div>
+        </header>
+        <main>
+            <section>
+                <h2>Verify your account through WhatsApp</h2>
+                <button id="verifyBtn">Verify my account</button>
+            </section>
+            <section>
+                <h2>Share & Win</h2>
+                <ol>
+                    <li>Click on the Copy Button below to copy your personalized referral link.</li>
+                    <li>Share it with your Friends / Family members.</li>
+                    <li>Earn Karma Points when they join through your link.</li>
+                </ol>
+              <input type="text" value="http://localhost:3001/register/{{user._id}}" id="referralLink" readonly>
+              <button onclick="copyReferralLink()">Copy</button>
+              <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+
+            </section>
+            <section>
+                <h2>Quick Shortcuts</h2>
+                <div>
+                    <a href="#">Free PDF</a>
+                    <a href="#">Batch Timings</a>
+                    <a href="#">Join Class</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </section>
+            <section>
+                <h2>Track Your Attendance</h2>
+                <p>Total Active Days: 0 Days</p>
+                <button>Invite 1 friend to UNLOCK</button>
+            </section>
+            <section>
+                <h2>Rewards on Friends Joining</h2>
+                <p>Your Rank: {{user.rank}}</p>
+                <p>5 Days Left to refer</p>
+                <div>
+                    <p>Register: 0/10 KP</p>
+                    <button>Invite 1 Friend</button>
+                </div>
+                <div>
+                    <p>Level 1: 10 Karma Points</p>
+                    <p>7 Days Voucher</p>
+                    <button>Invite 1 Friend</button>
+                </div>
+                <div>
+                    <p>Level 2: 50 Karma Points</p>
+                    <p>14 Days Voucher</p>
+                    <button>Invite 1 Friend</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <h2>Invite & Win</h2>
+            <p>Yoga Voucher for up to 12 Months</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyReferralLink() {
+            var copyText = document.getElementById("referralLink");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Referral link copied: " + copyText.value);
+        }
+
+        function shareOnWhatsApp() {
+            var link = document.getElementById("referralLink").value;
+            var whatsappUrl = `https://wa.me/?text=${encodeURIComponent(link)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
