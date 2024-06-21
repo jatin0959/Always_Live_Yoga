@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+ 
+</head>
+<body>
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <table class="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.topUsers}}
+                <tr>
+                 <td>
+                        <span class="rank-badge 
+                            {{#if @first}}gold
+                            {{else if (eq @index 1)}}silver
+                            {{else if (eq @index 2)}}bronze
+                            {{else}}default
+                            {{/if}}">
+                            {{addOne @index}}
+                        </span>
+                    </td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.karmaPoints}} KP</td>
+                </tr>
+                {{/each}}
+               {{#if data.loggedInUserObj}}
+                <tr class="logged-in-user">
+                    <td>{{data.loggedInUserObj.rank}}</td>
+                    <td>{{data.loggedInUserObj.name}}</td>
+                    <td>{{data.loggedInUserObj.karmaPoints}} KP</td>
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

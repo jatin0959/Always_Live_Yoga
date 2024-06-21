@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+ <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/referral">Referral</a></li>
+            <li><a href="/leaderboard/{{user.uniqueId}}">Leaderboard</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
         <header>
             <h1>Namaste, {{user.name}} ji!</h1>
@@ -27,7 +35,7 @@
                     <li>Share it with your Friends / Family members.</li>
                     <li>Earn Karma Points when they join through your link.</li>
                 </ol>
-              <input type="text" value="http://localhost:3001/register/{{user._id}}" id="referralLink" readonly>
+              <input type="text" value="http://localhost:3001/register/{{user.uniqueId}}" id="referralLink" readonly>
               <button onclick="copyReferralLink()">Copy</button>
               <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
 

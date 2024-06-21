@@ -1,31 +1,104 @@
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 .container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
 }
-header, main, footer {
-    margin-bottom: 20px;
+header,
+main,
+footer {
+  margin-bottom: 20px;
 }
 section {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-h1, h2 {
-    color: #333;
+h1,
+h2 {
+  color: #333;
 }
 button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 input {
-    padding: 10px;
-    margin-right: 10px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+nav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #111;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.leaderboard th,
+.leaderboard td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.leaderboard th {
+  background-color: #f2f2f2;
+}
+.rank-badge {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+}
+.rank-badge.gold {
+  background-color: gold;
+}
+.rank-badge.silver {
+  background-color: silver;
+}
+.rank-badge.bronze {
+  background-color: #cd7f32;
+}
+.rank-badge.default {
+  background-color: #f9f9f9;
+}
+.logged-in-user {
+  font-weight: bold;
+  background-color: #f9f9f9;
 }
