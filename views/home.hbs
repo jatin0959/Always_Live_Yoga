@@ -1,54 +1,63 @@
-{{!-- <h1>Join the 10-Day Online Free Yoga Challenge</h1>
-<form action="/register" method="POST">
-    <input type="text" name="name" placeholder="Enter Your Name" required>
-    <input type="tel" name="phone" placeholder="Enter Your WhatsApp Number" required>
-    <input type="hidden" name="referrer" value="{{referrer}}">
-    <button type="submit">Register Now for FREE</button>
-</form> --}}
+<div class="container">
+    <h1>Join the 10-Day Online Free Yoga Challenge</h1>
+    <form action="/register" method="POST" onsubmit="return validateForm()">
+        <input type="text" name="name" placeholder="Enter Your Name" required>
+        <input type="email" name="email" placeholder="Enter Your Email" required> <!-- Add email input -->
 
+        <input type="tel" id="phone" name="phone" placeholder="+91XXXXXXXXXX" value="+91" required
+            oninput="validatePhone()">
+        <input type="hidden" name="referrer" value="{{referrer}}">
+        <button type="submit">Register Now for FREE</button>
+    </form>
+    <script>
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            let phoneValue = phoneInput.value;
 
- <div class="container">
-        <h1>Join the 10-Day Online Free Yoga Challenge</h1>
-        <form action="/register" method="POST" onsubmit="return validateForm()">
-            <input type="text" name="name" placeholder="Enter Your Name" required>
-            <input type="tel" id="phone" name="phone" placeholder="+91XXXXXXXXXX" value="+91" required oninput="validatePhone()">
-            <input type="hidden" name="referrer" value="{{referrer}}">
-            <button type="submit">Register Now for FREE</button>
-        </form>
-        <script>
-            function validatePhone() {
-                const phoneInput = document.getElementById('phone');
-                let phoneValue = phoneInput.value;
-
-                // Ensure the value starts with +91
-                if (!phoneValue.startsWith('+91')) {
-                    phoneInput.value = '+91';
-                    phoneValue = '+91';
-                }
-
-                // Remove any non-numeric characters except the prefix
-                phoneValue = phoneValue.replace(/[^0-9\+]/g, '');
-                if (!phoneValue.startsWith('+91')) {
-                    phoneValue = '+91';
-                }
-
-                // Limit to 12 characters including +91
-                if (phoneValue.length > 13) {
-                    phoneValue = phoneValue.slice(0, 13);
-                }
-
-                phoneInput.value = phoneValue;
+            // Ensure the value starts with +91
+            if (!phoneValue.startsWith('+91')) {
+                phoneInput.value = '+91';
+                phoneValue = '+91';
             }
 
-            function validateForm() {
-                const phoneInput = document.getElementById('phone').value;
-                const numericPart = phoneInput.slice(3); // Exclude +91 prefix
-
-                if (numericPart.length !== 10 || isNaN(numericPart)) {
-                    alert('WhatsApp number must be exactly 10 digits long and contain only numbers after +91.');
-                    return false;
-                }
-                return true;
+            // Remove any non-numeric characters except the prefix
+            phoneValue = phoneValue.replace(/[^0-9\+]/g, '');
+            if (!phoneValue.startsWith('+91')) {
+                phoneValue = '+91';
             }
-        </script>
-    </div>
+
+            // Limit to 12 characters including +91
+            if (phoneValue.length > 13) {
+                phoneValue = phoneValue.slice(0, 13);
+            }
+
+            phoneInput.value = phoneValue;
+        }
+
+        function validateForm() {
+            const emailInput = document.getElementsByName('email')[0].value;
+
+            const phoneInput = document.getElementById('phone').value;
+            const numericPart = phoneInput.slice(3); // Exclude +91 prefix
+
+            if (numericPart.length !== 10 || isNaN(numericPart)) {
+                alert('WhatsApp number must be exactly 10 digits long and contain only numbers after +91.');
+                return false;
+            }
+            // Validate email format
+            if (!isValidEmail(emailInput)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function isValidEmail(email) {
+            // Basic email validation using a regular expression
+            // This is a simple validation, you might want to use a more robust validation in production
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</div>

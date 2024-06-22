@@ -5,6 +5,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const userRouter = require('./routes.js/userRoute');
 const path = require('path');
+const videoRouter = require('./routes.js/videoRoutes');
 
 const app = express();
 
@@ -50,6 +51,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => console.log(`MongoDB connection error: ${err.message}`));
 
 app.use(userRouter);
+app.use(videoRouter);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
