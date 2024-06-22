@@ -1,22 +1,23 @@
 const { default: mongoose } = require("mongoose");
 const User = require("../models/userModel");
+const cookieParser = require('cookie-parser');
 
 async function registerUser(req, res) {
     try {
 
         const { name, whatsapp, referrer } = req.body;
 
-        const uniqueId = generateUniqueId(name);
+        const referralLink = generateUniqueId(name);
 
         let newUser = new User({
             ...req.body,
             // referrer: referrerId,
-            uniqueId
+            referralLink
         });
 
 
         if (referrer) {
-            let referrerUser = await User.findOne({ uniqueId: referrer });
+            let referrerUser = await User.findOne({ referralLink: referrer });
             if (referrerUser) {
                 referrerUser.karmaPoints += 10; // Example reward
                 await referrerUser.save();
@@ -25,7 +26,10 @@ async function registerUser(req, res) {
         }
         await newUser.save();
 
-        res.redirect(`profile/${newUser.uniqueId}`);
+        res.cookie('user', { name: newUser.name, _id: newUser._id, referralLink: newUser.referralLink }, { httpOnly: true });
+
+
+        res.redirect(`profile`);
     } catch (error) {
         res.status(500).json(error.message)
 
@@ -43,9 +47,10 @@ async function home(req, res) {
 }
 
 async function profile(req, res) {
-    const uniqueId = req.params.id
+    const userId = req.cookies.user._id;
+
     try {
-        const userDoc = await User.findOne({ uniqueId });
+        const userDoc = await User.findById(userId);
         if (!userDoc) {
             return res.status(404).send('User not found');
         }
@@ -83,9 +88,9 @@ async function registerWithRefrence(req, res) {
 async function leaderboard(req, res) {
 
 
-    const uniqueId = req.params.id
+    const referralLink = req.params.id
 
-    console.log(uniqueId);
+    console.log(referralLink);
     try {
 
         const topUsers = await User.find()
@@ -93,7 +98,7 @@ async function leaderboard(req, res) {
             .limit(10);
 
 
-        let loggedInUser = await User.findOne({ uniqueId: uniqueId });
+        let loggedInUser = await User.findOne({ referralLink: referralLink });
         if (!loggedInUser) {
             return res.status(404).json({ error: 'User not found' });
         }

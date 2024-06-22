@@ -7,7 +7,7 @@ userRouter.get('/', home)
 
 userRouter.post('/register', registerUser)
 
-userRouter.get('/profile/:id', profile)
+userRouter.get('/profile', profile)
 
 userRouter.get('/register/:referrer', registerWithRefrence)
 

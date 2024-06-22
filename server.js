@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const userRouter = require('./routes.js/userRoute');
 const path = require('path');
 const videoRouter = require('./routes.js/videoRoutes');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.set('view engine', 'hbs');
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,3 +60,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+// 

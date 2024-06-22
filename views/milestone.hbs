@@ -1,4 +1,3 @@
-<!-- views/videos.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,58 @@
     <title>Videos</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-        /* Add some basic styling */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video-item {
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            position: relative;
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        .video-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .video-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .locked::after {
+            content: "🔒";
+            font-size: 30px;
+            color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .locked iframe {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     </style>
 </head>
 
@@ -15,98 +65,24 @@
     <div class="container">
         <h1>Videos</h1>
         <div class="video-list">
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/aIoxtU487yc?si=twoAxErQMEVXY5ix&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
+            {{#each videos}}
+            <div class="video-item {{#if this.isLocked}}locked{{/if}}">
+                <iframe src="https://www.youtube-nocookie.com/embed/{{this.id}}?controls=0" title="{{this.title}}"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 1</h3>
-                <p>Description for video 1.</p>
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <h3>{{this.title}}</h3>
+                {{!-- <p>{{this.description}}</p> --}}
             </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
-            <div class="video-item">
-                <iframe width="560" height="315"
-                    src="https://www.youtube-nocookie.com/embed/z0M1l2PhCBc?si=McLiXvcSBqGQh1cn&amp;controls=0"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Video Title 2</h3>
-                <p>Description for video 2.</p>
-            </div>
+            {{/each}}
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Additional JavaScript can be added here if needed
+        });
+    </script>
 </body>
 
 </html>
