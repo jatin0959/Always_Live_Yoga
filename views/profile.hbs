@@ -11,13 +11,36 @@
 <body>
     <nav>
         <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/referral">Referral</a></li>
+            <li><a href="/profile">Home</a></li>
+            {{!-- <li><a href="/referral">Referral</a></li> --}}
             <li><a href="/leaderboard/{{user.referralLink}}">Leaderboard</a></li>
             <li><a href="/videos/{{user._id}}">MileStones</a></li>
 
         </ul>
     </nav>
+    <button id="openSidebarBtn">Open Sidebar</button>
+
+    <div class="sidebar hidden">
+        <button class="close-btn">CLOSE</button>
+        <div class="profile-section">
+            <img src="assets\icon-5359553_640.webp" alt="Profile Picture">
+            <h2>{{user.name}}</h2>
+            <a href="/profile">View Profile</a>
+        </div>
+        <div class="qr-section">
+            <h3>Personal Invite QR Code</h3>
+            <img src="{{qrCodeDataUrl}}" alt="QR Code">
+            <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+            <button class="download-btn">Download QR</button>
+        </div>
+        <div class="links-section">
+            <a href="#">FAQs</a>
+            <a href="/logout">Logout</a>
+            <a href="#">Terms of Use</a>
+        </div>
+    </div>
+
+
 
     <div class="container">
         <header>
@@ -98,6 +121,24 @@
             var whatsappUrl = `https://wa.me/?text=${encodeURIComponent(link)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const openBtn = document.getElementById('openSidebarBtn');
+            const closeBtn = document.querySelector('.sidebar .close-btn');
+            const sidebar = document.querySelector('.sidebar');
+
+            openBtn.addEventListener('click', function () {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('visible');
+            });
+
+            closeBtn.addEventListener('click', function () {
+                sidebar.classList.remove('visible');
+                sidebar.classList.add('hidden');
+            });
+        });
+
+
     </script>
 </body>
 

@@ -186,3 +186,124 @@ nav ul li a:hover {
   pointer-events: none;
   opacity: 0.5;
 }
+
+/* body {
+  display: flex;
+} */
+
+.sidebar {
+  width: 300px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar.visible {
+  transform: translateX(0);
+}
+
+.content {
+  margin-left: 320px;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.profile-section img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-section h2 {
+  font-size: 1.5em;
+}
+
+.qr-section img {
+  width: 150px;
+  height: 150px;
+}
+
+.close-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.download-btn,
+.links-section a {
+  display: block;
+  margin: 10px 0;
+  text-align: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.links-section a {
+  background-color: transparent;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .content {
+    margin-left: 0;
+  }
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  height: 25px;
+  background-color: #4caf50;
+  width: 0;
+  border-radius: 25px;
+  transition: width 0.5s ease-in-out;
+}
+
+.video-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-item iframe {
+  pointer-events: none; /* Allow clicks to pass through to the parent div */
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 5px;
+}

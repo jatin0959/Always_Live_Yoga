@@ -2,6 +2,7 @@
 const express = require('express');
 const { google } = require('googleapis');
 const User = require('../models/userModel');
+const QRCode = require('qrcode');
 
 const videoRouter = express.Router();
 
@@ -17,6 +18,14 @@ const videoIds = [
 
 videoRouter.get('/videos/:id', async (req, res) => {
     const user = await User.findById(req.params.id);
+
+    const totalVideos = 10; // Total number of videos for the milestone  videosAccessed
+    const videosAccessedCount = user.videosAccessed.length;
+    const progressPercentage = (videosAccessedCount / totalVideos) * 100;
+
+    const referralLink = `http://localhost:3001/register/${user.referralLink}`;
+    const qrCodeDataUrl = await QRCode.toDataURL(referralLink);
+
     if (!user) {
         return res.status(404).json({ msg: 'User not found' });
     }
@@ -38,8 +47,34 @@ videoRouter.get('/videos/:id', async (req, res) => {
         };
     }));
 
-    res.render('milestone', { videos: videoData });
+    res.render('milestone', { videos: videoData, user, qrCodeDataUrl, progressPercentage });
 });
+
+videoRouter.post('/update-accessed-video', async (req, res) => {
+    try {
+        const { videoId } = req.body;
+        const userCookie = req.cookies.user;
+
+
+        console.log('hereeeeee', videoId);
+        console.log('demo', userCookie);
+        const user = await User.findById(userCookie._id);
+
+        if (!user.videosAccessed.includes(videoId)) {
+            user.videosAccessed.push(videoId);
+            await user.save();
+        }
+
+        const totalVideos = 10;
+        const videosAccessedCount = user.videosAccessed.length;
+        const progressPercentage = (videosAccessedCount / totalVideos) * 100;
+
+        res.json({ progressPercentage });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = videoRouter;
 

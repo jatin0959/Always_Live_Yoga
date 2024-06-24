@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const User = require("../models/userModel");
 const cookieParser = require("cookie-parser");
+const QRCode = require('qrcode');
 
 async function registerUser(req, res) {
     try {
@@ -58,13 +59,20 @@ async function home(req, res) {
 async function profile(req, res) {
     const userId = req.cookies.user._id;
 
+
+
     try {
         const userDoc = await User.findById(userId);
+        const referralLink = `http://localhost:3001/register/${userDoc.referralLink}`;
+        const qrCodeDataUrl = await QRCode.toDataURL(referralLink);
         if (!userDoc) {
             return res.status(404).send("User not found");
         }
         const user = userDoc.toObject();
-        res.render("profile", { user });
+        res.render('profile', {
+            user,
+            qrCodeDataUrl
+        });
     } catch (error) {
         res.status(500).send("Error loading profile");
     }
@@ -97,6 +105,10 @@ async function leaderboard(req, res) {
         const topUsers = await User.find().sort({ karmaPoints: -1 }).limit(10);
 
         let loggedInUser = await User.findOne({ referralLink: referralLink });
+
+        const newreferralLink = `http://localhost:3001/register/${loggedInUser.referralLink}`;
+        const qrCodeDataUrl = await QRCode.toDataURL(newreferralLink);
+
         if (!loggedInUser) {
             return res.status(404).json({ error: "User not found" });
         }
@@ -113,7 +125,7 @@ async function leaderboard(req, res) {
 
         const data = { topUsers, loggedInUserObj };
 
-        res.render("leaderboard", { data });
+        res.render("leaderboard", { data, user: loggedInUser, qrCodeDataUrl });
     } catch (error) {
         console.error(error);
         throw error;
