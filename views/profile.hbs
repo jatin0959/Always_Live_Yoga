@@ -1,145 +1,157 @@
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/f9df02bf03.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      nav { position: sticky; }
+    </style>
+  </head>
 
-<body>
-    <nav>
-        <ul>
-            <li><a href="/profile">Home</a></li>
-            {{!-- <li><a href="/referral">Referral</a></li> --}}
-            <li><a href="/leaderboard/{{user.referralLink}}">Leaderboard</a></li>
-            <li><a href="/videos/{{user._id}}">MileStones</a></li>
+  <body>
 
-        </ul>
-    </nav>
-    <button id="openSidebarBtn">Open Sidebar</button>
-
-    <div class="sidebar hidden">
+    <div class="container profile-main">
+      
+      <div class="sidebar hidden">
         <button class="close-btn">CLOSE</button>
         <div class="profile-section">
-            <img src="assets\icon-5359553_640.webp" alt="Profile Picture">
-            <h2>{{user.name}}</h2>
-            <a href="/profile">View Profile</a>
+          <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+          <h2>{{user.name}}</h2>
+          <a href="/profile">View Profile</a>
         </div>
         <div class="qr-section">
-            <h3>Personal Invite QR Code</h3>
-            <img src="{{qrCodeDataUrl}}" alt="QR Code">
-            <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
-            <button class="download-btn">Download QR</button>
+          <h3>Personal Invite QR Code</h3>
+          <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+          <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+          <button class="download-btn">Download QR</button>
         </div>
         <div class="links-section">
-            <a href="#">FAQs</a>
-            <a href="/logout">Logout</a>
-            <a href="#">Terms of Use</a>
+          <a href="#">FAQs</a>
+          <a href="/logout">Logout</a>
+          <a href="#">Terms of Use</a>
         </div>
-    </div>
+      </div>
+      <header class="header">
+        <div class="header-section">
+        <button id="openSidebarBtn"><i
+            class="fa-solid fa-bars menu-icon"
+          ></i></button>
+        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+        <div class="header-rank-container">
+          <p class="header-rank">Rank: {{user.rank}}</p>
+          <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
+        </div>
+        </div>
+        <nav>
+        <ul>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a></li>
+          {{! <li><a href="/referral">Referral</a></li> }}
+          <li></i>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
+          <li></i>
+            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
 
+        </ul>
+      </nav>
+      </header>
 
+      
+      <main>
+        <section class="profile-section">
+          <h2 class="verify-account-heading">Verify your account through
+            WhatsApp</h2>
+          <button id="verifyBtn" class="verify-button">Verify my account</button>
+        </section>
+        <section class="share-and-win-section">
+          <h2 class="share-and-win-heading">Share & Win</h2>
+          <ol class="share-instructions-container">
+            <li class="share-instruction-item">Click on the Copy Button below to
+              copy your personalized referral link.</li>
+            <li class="share-instruction-item">Share it with your Friends /
+              Family members.</li>
+            <li class="share-instruction-item">Earn Karma Points when they join
+              through your link.</li>
+          </ol>
+          <input
+            type="text"
+            value="http://localhost:3001/register/{{user.referralLink}}"
+            id="referralLink"
+            readonly
+            class="referal-link-input"
+          />
+          <button onclick="copyReferralLink()" class="copy-button">Copy</button>
+          <button
+            onclick="shareOnWhatsApp()"
+            class="share-whatsapp-button"
+          >Share on WhatsApp</button>
 
-    <div class="container">
-        <header>
-            <h1>Namaste, {{user.name}} ji!</h1>
-            <div>
-                <p>Rank: {{user.rank}}</p>
-                <p>Karma Points: {{user.karmaPoints}}</p>
-            </div>
-        </header>
-        <main>
-            <section>
-                <h2>Verify your account through WhatsApp</h2>
-                <button id="verifyBtn">Verify my account</button>
-            </section>
-            <section>
-                <h2>Share & Win</h2>
-                <ol>
-                    <li>Click on the Copy Button below to copy your personalized referral link.</li>
-                    <li>Share it with your Friends / Family members.</li>
-                    <li>Earn Karma Points when they join through your link.</li>
-                </ol>
-                <input type="text" value="http://localhost:3001/register/{{user.referralLink}}" id="referralLink"
-                    readonly>
-                <button onclick="copyReferralLink()">Copy</button>
-                <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
-
-            </section>
-            <section>
-                <h2>Quick Shortcuts</h2>
-                <div>
-                    <a href="#">Free PDF</a>
-                    <a href="#">Batch Timings</a>
-                    <a href="#">Join Class</a>
-                    <a href="#">FAQ</a>
-                </div>
-            </section>
-            <section>
-                <h2>Track Your Attendance</h2>
-                <p>Total Active Days: 0 Days</p>
-                <button>Invite 1 friend to UNLOCK</button>
-            </section>
-            <section>
-                <h2>Rewards on Friends Joining</h2>
-                <p>Your Rank: {{user.rank}}</p>
-                <p>5 Days Left to refer</p>
-                <div>
-                    <p>Register: 0/10 KP</p>
-                    <button>Invite 1 Friend</button>
-                </div>
-                <div>
-                    <p>Level 1: 10 Karma Points</p>
-                    <p>7 Days Voucher</p>
-                    <button>Invite 1 Friend</button>
-                </div>
-                <div>
-                    <p>Level 2: 50 Karma Points</p>
-                    <p>14 Days Voucher</p>
-                    <button>Invite 1 Friend</button>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <h2>Invite & Win</h2>
-            <p>Yoga Voucher for up to 12 Months</p>
-        </footer>
+        </section>
+        <section class="shortcuts-section">
+          <h2 class="shortcuts-heading">Quick Shortcuts</h2>
+          <div class="shortcut-options-container">
+            <a href="#" class="shortcut-link">Free PDF</a>
+            <a href="#" class="shortcut-link">Batch Timings</a>
+            <a href="#" class="shortcut-link">Join Class</a>
+            <a href="#" class="shortcut-link">FAQ</a>
+          </div>
+        </section>
+        <section class="attendance-section">
+          <h2 class="attendance-heading">Track Your Attendance</h2>
+          <p class="attendance-days">Total Active Days: 0 Days</p>
+          <button class="invite-friend-button">Invite 1 friend to UNLOCK</button>
+        </section>
+        <section class="rewards-section">
+          <h2 class="rewards-heading">Rewards on Friends Joining</h2>
+          <p class="rank-info">Your Rank: {{user.rank}}</p>
+          <p class="refer-info">5 Days Left to refer</p>
+          <div class="reward-level">
+            <p class="reward-description">Register: 0/10 KP</p>
+            <button class="invite-friend-button">Invite 1 Friend</button>
+          </div>
+          <div class="reward-level">
+            <p class="reward-description">Level 1: 10 Karma Points</p>
+            <p class="voucher-info">7 Days Voucher</p>
+            <button class="invite-friend-button">Invite 1 Friend</button>
+          </div>
+          <div class="reward-level">
+            <p class="reward-description">Level 2: 50 Karma Points</p>
+            <p class="voucher-info">14 Days Voucher</p>
+            <button class="invite-friend-button">Invite 1 Friend</button>
+          </div>
+        </section>
+      </main>
+      <footer class="profile-footer">
+        <h2 class="profile-footer-heading">Invite & Win</h2>
+        <p class="profile-footer-description">Yoga Voucher for up to 12 Months</p>
+      </footer>
+      
     </div>
 
     <script>
-        function copyReferralLink() {
-            var copyText = document.getElementById("referralLink");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Referral link copied: " + copyText.value);
-        }
-
-        function shareOnWhatsApp() {
-            var link = document.getElementById("referralLink").value;
-            var whatsappUrl = `https://wa.me/?text=${encodeURIComponent(link)}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const openBtn = document.getElementById('openSidebarBtn');
-            const closeBtn = document.querySelector('.sidebar .close-btn');
-            const sidebar = document.querySelector('.sidebar');
-
-            openBtn.addEventListener('click', function () {
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('visible');
-            });
-
-            closeBtn.addEventListener('click', function () {
-                sidebar.classList.remove('visible');
-                sidebar.classList.add('hidden');
-            });
-        });
-
+      function copyReferralLink() { var copyText =
+      document.getElementById("referralLink"); copyText.select();
+      document.execCommand("copy"); alert("Referral link copied: " +
+      copyText.value); } function shareOnWhatsApp() { var link =
+      document.getElementById("referralLink").value; var whatsappUrl =
+      `https://wa.me/?text=${encodeURIComponent(link)}`;
+      window.open(whatsappUrl, '_blank'); }
+      document.addEventListener('DOMContentLoaded', function () { const openBtn
+      = document.getElementById('openSidebarBtn'); const closeBtn =
+      document.querySelector('.sidebar .close-btn'); const sidebar =
+      document.querySelector('.sidebar'); openBtn.addEventListener('click',
+      function () { sidebar.classList.remove('hidden');
+      sidebar.classList.add('visible'); }); closeBtn.addEventListener('click',
+      function () { sidebar.classList.remove('visible');
+      sidebar.classList.add('hidden'); }); });
 
     </script>
-</body>
+  </body>
 
 </html>

@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <title>Leaderboard</title>
     <link rel="stylesheet" href="/css/styles.css">
-
+    <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+<style>
+      nav { position: sticky; }
+    </style>
 </head>
 
 <body>
-    <nav>
+    <!--
+    <nav class="nav-bar">
         <ul>
             <li><a href="/profile">Home</a></li>
             {{!-- <li><a href="/referral">Referral</a></li> --}}
@@ -39,8 +43,53 @@
             <a href="#">Terms of Use</a>
         </div>
     </div>
+    -->
     <div class="container">
-        <h1>Leaderboard</h1>
+        <div class="sidebar hidden">
+        <button class="close-btn">CLOSE</button>
+        <div class="profile-section">
+          <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+          <h2>{{user.name}}</h2>
+          <a href="/profile">View Profile</a>
+        </div>
+        <div class="qr-section">
+          <h3>Personal Invite QR Code</h3>
+          <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+          <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+          <button class="download-btn">Download QR</button>
+        </div>
+        <div class="links-section">
+          <a href="#">FAQs</a>
+          <a href="/logout">Logout</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+        <header class="header">
+        <div class="header-section">
+        <button id="openSidebarBtn"><i
+            class="fa-solid fa-bars menu-icon"
+          ></i></button>
+        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+        <div class="header-rank-container">
+          <p class="header-rank">Rank: {{user.rank}}</p>
+          <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
+        </div>
+        </div>
+        <nav>
+        <ul>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a></li>
+          {{! <li><a href="/referral">Referral</a></li> }}
+          <li></i>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
+          <li></i>
+            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
+
+        </ul>
+      </nav>
+      </header>
+        <div class="container-leaderboard">
+        <h1 class="container-main-heading">Leaderboard</h1>
 
         
         <table class="leaderboard">
@@ -65,7 +114,7 @@
                         </span>
                     </td>
                     <td>{{this.name}}</td>
-                    <td>{{this.karmaPoints}} KP</td>
+                    <td><img class="kp-token" src="https://assets.habit.yoga/freeyoga/points_coin.png"/> {{this.karmaPoints}} KP</td>
                 </tr>
                 {{/each}}
                 {{#if data.loggedInUserObj}}
@@ -77,6 +126,7 @@
                 {{/if}}
             </tbody>
         </table>
+        </div>
     </div>
 
     <script>

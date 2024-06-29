@@ -5,6 +5,7 @@ body {
   max-width: 800px;
   margin: auto;
   padding: 20px;
+  background-color: #92cec4;
 }
 header,
 main,
@@ -19,37 +20,50 @@ h2 {
   color: #333;
 }
 button {
-  background-color: #007bff;
+  background-color: transparent;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
 }
-button:hover {
-  background-color: #0056b3;
+
+.menu-icon {
+  font-size: 20px;
 }
+
 input {
   padding: 10px;
   margin-right: 10px;
 }
 
 nav {
-  background-color: #333;
+  background-color: transparent;
   overflow: hidden;
+  position: sticky;
+  top: 130;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(226, 129, 179, 0.5);
 }
 
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 nav ul li {
   float: left;
+  align-items: center;
+  justify-content: center;
 }
 
 nav ul li a {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -150,7 +164,7 @@ nav ul li a:hover {
   width: 300px;
   margin: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 4px solid #c65b92;
   border-radius: 5px;
   text-align: left;
   position: relative;
@@ -200,14 +214,17 @@ nav ul li a:hover {
   overflow: auto;
   transition: transform 0.3s ease;
   transform: translateX(-100%);
+  z-index: 2;
 }
 
 .sidebar.hidden {
   transform: translateX(-100%);
+  display: none;
 }
 
 .sidebar.visible {
   transform: translateX(0);
+  display: block;
 }
 
 .content {
@@ -296,8 +313,8 @@ nav ul li a:hover {
 
 .progress-bar-container {
   width: 100%;
-  background-color: #f3f3f3;
-  border: 1px solid #ccc;
+  background-color: #0d4056;
+  border: 0px solid #92cec4;
   border-radius: 5px;
   margin: 20px 0;
 }
@@ -306,4 +323,424 @@ nav ul li a:hover {
   height: 20px;
   background-color: #4caf50;
   border-radius: 5px;
+}
+
+.milestone-heading {
+  color: #c65b92;
+}
+
+.milestone-btn {
+  color: #c65b92;
+  border-radius: 18px;
+  height: 38px;
+  width: 200px;
+  background-color: transparent;
+  border: 3px solid #c65b92;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 7px;
+  text-align: center;
+}
+
+.header {
+  width: 97%;
+  background-color: rgb(226, 129, 179);
+  /*background-color: #e5cedc;*/
+  padding-left: 10px;
+  padding-right: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-user-name {
+  font-size: 20px;
+  font-family: "Roboto";
+  width: 150px;
+  color: white;
+}
+
+.header-rank-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(170, 60, 128);
+  border-radius: 8px;
+  margin-left: auto;
+  padding: 10px;
+}
+
+.header-rank,
+.header-points {
+  font-size: 18px;
+  font-family: "Roboto";
+  color: white;
+  margin-bottom: 4px;
+}
+
+.profile-section,
+.share-and-win-section,
+.shortcuts-section,
+.attendance-section,
+.rewards-section {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 95%;
+}
+
+.profile-main {
+  background-color: #185771;
+}
+
+/* Common Styles for Headings */
+.verify-account-heading,
+.share-and-win-heading,
+.shortcuts-heading,
+.attendance-heading,
+.rewards-heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.common-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px 0;
+}
+
+.common-button:hover {
+  background-color: #0056b3;
+}
+
+/* Profile Section */
+.profile-section {
+  background-color: #e9f7ef;
+}
+
+.verify-account-heading {
+  color: #28a745;
+}
+
+.verify-button {
+  background-color: #007bff;
+}
+
+.share-and-win-heading {
+  color: #0d4056;
+}
+
+.share-instructions-container {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.share-instruction-item {
+  margin-bottom: 10px;
+}
+
+.referal-link-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.copy-button {
+  background-color: #17a2b8;
+}
+
+.copy-button:hover {
+  background-color: #138496;
+}
+
+.share-whatsapp-button {
+  background-color: #25d366;
+}
+
+.share-whatsapp-button:hover {
+  background-color: #1ebea5;
+}
+
+.shortcuts-section {
+  background-color: #f8f9fa;
+}
+
+.shortcuts-heading {
+  color: #343a40;
+}
+
+.shortcut-options-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shortcut-link {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.shortcut-link:hover {
+  background-color: #0056b3;
+}
+
+.attendance-heading {
+  color: #0d4056;
+}
+
+.attendance-days {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.invite-friend-button {
+  background-color: #007bff;
+}
+
+/* Rewards Section */
+.rewards-section {
+  background-color: #f1f1f1;
+}
+
+.rewards-heading {
+  color: #ff5722;
+}
+
+.rank-info,
+.refer-info,
+.reward-description,
+.voucher-info {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.reward-level {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.profile-footer {
+  background-color: #ffffff;
+  color: #0d4056;
+  padding: 20px;
+  text-align: center;
+  width: 95%;
+}
+
+.profile-footer-heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.profile-footer-description {
+  font-size: 1rem;
+}
+
+.reward-description {
+  color: #0d4056;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .verify-account-heading,
+  .share-and-win-heading,
+  .shortcuts-heading,
+  .attendance-heading,
+  .rewards-heading {
+    font-size: 1.25rem;
+  }
+
+  .rank-info,
+  .refer-info,
+  .reward-description,
+  .voucher-info,
+  .share-instruction-item {
+    font-size: 0.875rem;
+  }
+
+  .common-button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+
+  .referal-link-input {
+    padding: 8px;
+  }
+
+  .shortcut-link {
+    padding: 8px;
+    font-size: 0.875rem;
+  }
+}
+.profile-section,
+.share-and-win-section,
+.shortcuts-section,
+.attendance-section,
+.rewards-section {
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.common-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .common-button {
+    padding: 8px 16px;
+  }
+}
+
+/*leaderboard and form*/
+
+.container-leaderboard {
+  background-color: #92cec4;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.container-main-heading {
+  color: #c65b92;
+}
+
+.leaderboard th {
+  background-color: #0d4056;
+  color: white;
+  border: 0px;
+  height: 20px;
+}
+
+.leaderboard td {
+  border: 0px;
+  height: 20px;
+  font-weight: 600;
+}
+
+.kp-token {
+  height: 16px;
+  width: 16px;
+}
+
+.rank-badge {
+  display: inline-block;
+  border-radius: 12px;
+  font-weight: bold;
+  padding: 3px;
+}
+
+.form-heading {
+  text-align: center;
+  color: #0d4056;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"] {
+  width: 50%;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 18px;
+}
+form button {
+  width: 30%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #92cec4;
+  color: #0d4056;
+  font-weight: 600;
+  font-size: 1em;
+  cursor: pointer;
+}
+form button:hover {
+  background-color: #c65b92;
+  color: #ffffff;
+}
+
+.form-img {
+  width: 60%;
+  margin: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"] {
+    width: 80%;
+    font-size: 16px;
+  }
+
+  form button {
+    width: 50%;
+    font-size: 0.9em;
+  }
+
+  .form-img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"] {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  form button {
+    width: 70%;
+    font-size: 0.8em;
+  }
+
+  .form-img {
+    width: 100%;
+  }
 }
