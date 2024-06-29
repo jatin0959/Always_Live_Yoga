@@ -63,7 +63,7 @@ async function profile(req, res) {
 
     try {
         const userDoc = await User.findById(userId);
-        const referralLink = `http://localhost:3001/register/${userDoc.referralLink}`;
+        const referralLink = `https://always-live-yoga.onrender.com/register/${userDoc.referralLink}`;
         const qrCodeDataUrl = await QRCode.toDataURL(referralLink);
         if (!userDoc) {
             return res.status(404).send("User not found");
