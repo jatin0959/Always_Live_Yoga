@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <input type="text" name="phone" id="phone" placeholder="phone" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    {{!--
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            let phoneInput = document.getElementById('phone');
+            let phone = phoneInput.value;
+
+            // Add +91 if it's not already present
+            if (!phone.startsWith('+91')) {
+                phone = '+91' + phone;
+            }
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone })
+            });
+
+
+        });
+    </script> --}}
+</body>
+
+</html>

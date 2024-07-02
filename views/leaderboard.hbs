@@ -2,155 +2,132 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Leaderboard</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
-<style>
-      nav { position: sticky; }
-      .container {
-        background-color: white;
-        padding: 0px;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+  <style>
+    nav {
+      position: sticky;
+    }
+
+    .container {
+      background-color: white;
+      padding: 0px;
+    }
+  </style>
 </head>
 
 <body>
-    <!--
-    <nav class="nav-bar">
-        <ul>
-            <li><a href="/profile">Home</a></li>
-            {{!-- <li><a href="/referral">Referral</a></li> --}}
-            <li><a href="/leaderboard/{{user.referralLink}}">Leaderboard</a></li>
-            <li><a href="/videos/{{user._id}}">MileStones</a></li>
 
-        </ul>
-    </nav>
-    <button id="openSidebarBtn">Open Sidebar</button>
-
+  <div class="container">
     <div class="sidebar hidden">
-        <button class="close-btn">CLOSE</button>
-        <div class="profile-section">
-            <img src="http://localhost:3001/assets/icon-5359553_640.webp" alt="Profile Picture">
-            <h2>{{user.name}}</h2>
-            <a href="/profile">View Profile</a>
-        </div>
-        <div class="qr-section">
-            <h3>Personal Invite QR Code</h3>
-            <img src="{{qrCodeDataUrl}}" alt="QR Code">
-            <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
-            <button class="download-btn">Download QR</button>
-        </div>
-        <div class="links-section">
-            <a href="#">FAQs</a>
-            <a href="/logout">Logout</a>
-            <a href="#">Terms of Use</a>
-        </div>
-    </div>
-    -->
-    <div class="container">
-        <div class="sidebar hidden">
-        <button class="close-btn">CLOSE</button>
-        <div class="profile-section">
-          <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
-          <h2>{{user.name}}</h2>
-          <a href="/profile">View Profile</a>
-        </div>
-        <div class="qr-section">
-          <h3>Personal Invite QR Code</h3>
-          <img src="{{qrCodeDataUrl}}" alt="QR Code" />
-          <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
-          <button class="download-btn">Download QR</button>
-        </div>
-        <div class="links-section">
-          <a href="#">FAQs</a>
-          <a href="/logout">Logout</a>
-          <a href="#">Terms of Use</a>
-        </div>
+      <button class="close-btn">CLOSE</button>
+      <div class="profile-section">
+        <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+        <h2>{{user.name}}</h2>
+        <a href="/profile">View Profile</a>
       </div>
-        <header class="header">
-        <div class="header-section">
-        <button id="openSidebarBtn" class="side-bar-open-btn"><i
-            class="fa-solid fa-bars menu-icon"
-          ></i></button>
+      <div class="qr-section">
+        <h3>Personal Invite QR Code</h3>
+        <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+        <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+        <button class="download-btn">Download QR</button>
+      </div>
+      <div class="links-section">
+        <a href="#">FAQs</a>
+        <a href="/logout">Logout</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <header class="header">
+      <div class="header-section">
+        <button id="openSidebarBtn" class="side-bar-open-btn"><i class="fa-solid fa-bars menu-icon"></i></button>
         <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
         <div class="header-rank-container">
           <p class="header-rank">Rank: {{user.rank}}</p>
           <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
         </div>
-        </div>
-        <nav>
+      </div>
+      <nav>
         <ul>
           <li></i>
-            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a></li>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
+          </li>
           {{! <li><a href="/referral">Referral</a></li> }}
           <li></i>
-            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
+                style="color:white;"></i>Leaderboard</a>
+          </li>
           <li></i>
-            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Resources</a>
+          </li>
+          <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
 
         </ul>
       </nav>
-      </header>
-        <div class="container-leaderboard">
-        <h1 class="container-main-heading">Leaderboard</h1>
+    </header>
+    <div class="container-leaderboard">
+      <h1 class="container-main-heading">Leaderboard</h1>
 
-        
-        <table class="leaderboard">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each data.topUsers}}
-                <tr>
-                    <td>
-                        <span class="rank-badge 
+
+      <table class="leaderboard">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data.topUsers}}
+          <tr>
+            <td>
+              <span class="rank-badge 
                             {{#if @first}}gold
                             {{else if (eq @index 1)}}silver
                             {{else if (eq @index 2)}}bronze
                             {{else}}default
                             {{/if}}">
-                            {{addOne @index}}
-                        </span>
-                    </td>
-                    <td>{{this.name}}</td>
-                    <td><img class="kp-token" src="https://assets.habit.yoga/freeyoga/points_coin.png"/> {{this.karmaPoints}} KP</td>
-                </tr>
-                {{/each}}
-                {{#if data.loggedInUserObj}}
-                <tr class="logged-in-user">
-                    <td>{{data.loggedInUserObj.rank}}</td>
-                    <td>{{data.loggedInUserObj.name}}</td>
-                    <td>{{data.loggedInUserObj.karmaPoints}} KP</td>
-                </tr>
-                {{/if}}
-            </tbody>
-        </table>
-        </div>
+                {{addOne @index}}
+              </span>
+            </td>
+            <td>{{this.name}}</td>
+            <td><img class="kp-token" src="https://assets.habit.yoga/freeyoga/points_coin.png" /> {{this.karmaPoints}}
+              KP</td>
+          </tr>
+          {{/each}}
+          {{#if data.loggedInUserObj}}
+          <tr class="logged-in-user">
+            <td>{{data.loggedInUserObj.rank}}</td>
+            <td>{{data.loggedInUserObj.name}}</td>
+            <td>{{data.loggedInUserObj.karmaPoints}} KP</td>
+          </tr>
+          {{/if}}
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <script>
+  <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const openBtn = document.getElementById('openSidebarBtn');
-            const closeBtn = document.querySelector('.sidebar .close-btn');
-            const sidebar = document.querySelector('.sidebar');
+    document.addEventListener('DOMContentLoaded', function () {
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.querySelector('.sidebar .close-btn');
+      const sidebar = document.querySelector('.sidebar');
 
-            openBtn.addEventListener('click', function () {
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('visible');
-            });
+      openBtn.addEventListener('click', function () {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('visible');
+      });
 
-            closeBtn.addEventListener('click', function () {
-                sidebar.classList.remove('visible');
-                sidebar.classList.add('hidden');
-            });
-        });
-    </script>
+      closeBtn.addEventListener('click', function () {
+        sidebar.classList.remove('visible');
+        sidebar.classList.add('hidden');
+      });
+    });
+  </script>
 </body>
 
 

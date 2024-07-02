@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="login-form">
+            <input type="number" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const { token } = await response.json();
+                localStorage.setItem('token', token);
+                window.location.href = '/profile';
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+    </script>
+</body>
+
+</html>

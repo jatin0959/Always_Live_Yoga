@@ -5,18 +5,22 @@
     <meta charset="UTF-8">
     <title>Videos</title>
     <link rel="stylesheet" href="/css/styles.css">
-      <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
     <style>
-      nav { position: sticky; }
-      .container {
-        background-color: white;
-        padding: 0px;
-      }
-      .mile-stone-section {
-        background-color:#92cec4;
-        padding-top: 10px;
-        margin-top: -10px;
-      }
+        nav {
+            position: sticky;
+        }
+
+        .container {
+            background-color: white;
+            padding: 0px;
+        }
+
+        .mile-stone-section {
+            background-color: #92cec4;
+            padding-top: 10px;
+            margin-top: -10px;
+        }
     </style>
 </head>
 
@@ -54,71 +58,76 @@
     -->
     <div class="container">
         <div class="sidebar hidden">
-        <button class="close-btn">CLOSE</button>
-        <div class="profile-section">
-          <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
-          <h2>{{user.name}}</h2>
-          <a href="/profile">View Profile</a>
+            <button class="close-btn">CLOSE</button>
+            <div class="profile-section">
+                <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+                <h2>{{user.name}}</h2>
+                <a href="/profile">View Profile</a>
+            </div>
+            <div class="qr-section">
+                <h3>Personal Invite QR Code</h3>
+                <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+                <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+                <button class="download-btn">Download QR</button>
+            </div>
+            <div class="links-section">
+                <a href="#">FAQs</a>
+                <a href="/logout">Logout</a>
+                <a href="#">Terms of Use</a>
+            </div>
         </div>
-        <div class="qr-section">
-          <h3>Personal Invite QR Code</h3>
-          <img src="{{qrCodeDataUrl}}" alt="QR Code" />
-          <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
-          <button class="download-btn">Download QR</button>
-        </div>
-        <div class="links-section">
-          <a href="#">FAQs</a>
-          <a href="/logout">Logout</a>
-          <a href="#">Terms of Use</a>
-        </div>
-      </div>
 
         <header class="header">
-        <div class="header-section">
-        <button id="openSidebarBtn" class="side-bar-open-btn"><i
-            class="fa-solid fa-bars menu-icon"
-          ></i></button>
-        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
-        <div class="header-rank-container">
-          <p class="header-rank">Rank: {{user.rank}}</p>
-          <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
-        </div>
-        </div>
-        <nav>
-        <ul>
-          <li></i>
-            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a></li>
-          {{! <li><a href="/referral">Referral</a></li> }}
-          <li></i>
-            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
-          <li></i>
-            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
-
-        </ul>
-      </nav>
-      </header>
-        <div class="mile-stone-section">
-        <h1 class="milestone-heading">Videos</h1>
-
-        <div class="progress-bar-container">
-            <div class="progress-bar" style="width: {{progressPercentage}}%;"></div>
-        </div>
-        <form id="generate-pdf-form">
-            <button type="submit" class="milestone-btn">Generate PDF</button>
-        </form>
-        <div class="video-list">
-            {{#each videos}}
-            <div class="video-item {{#if this.isLocked}}locked{{/if}}" data-video-id="{{this.id}}">
-                <iframe src="https://www.youtube-nocookie.com/embed/{{this.id}}?controls=0" title="{{this.title}}"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
-                <h3>{{this.title}}</h3>
+            <div class="header-section">
+                <button id="openSidebarBtn" class="side-bar-open-btn"><i
+                        class="fa-solid fa-bars menu-icon"></i></button>
+                <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+                <div class="header-rank-container">
+                    <p class="header-rank">Rank: {{user.rank}}</p>
+                    <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
+                </div>
             </div>
-            {{/each}}
+            <nav>
+                <ul>
+                    <li></i>
+                        <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
+                    </li>
+                    {{! <li><a href="/referral">Referral</a></li> }}
+                    <li></i>
+                        <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
+                                style="color:white;"></i>Leaderboard</a>
+                    </li>
+                    <li></i>
+                    <li></i>
+                        <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Resources</a>
+                    </li>
+                    <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
+
+                </ul>
+            </nav>
+        </header>
+        <div class="mile-stone-section">
+            <h1 class="milestone-heading">Videos</h1>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: {{progressPercentage}}%;"></div>
+            </div>
+            <form id="generate-pdf-form">
+                <button type="submit" class="milestone-btn">Generate PDF</button>
+            </form>
+            <div class="video-list">
+                {{#each videos}}
+                <div class="video-item {{#if this.isLocked}}locked{{/if}}" data-video-id="{{this.id}}">
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{this.id}}?controls=0" title="{{this.title}}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                    <h3>{{this.title}}</h3>
+                </div>
+                {{/each}}
+            </div>
         </div>
-    </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

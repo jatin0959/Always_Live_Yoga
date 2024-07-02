@@ -5,7 +5,9 @@ const QRCode = require('qrcode');
 
 async function registerUser(req, res) {
     try {
-        const { name, whatsapp, referrer } = req.body;
+        const { name, referrer } = req.body;
+
+        console.log(req.body);
 
         const referralLink = generateUniqueId(name);
 
@@ -41,6 +43,26 @@ async function registerUser(req, res) {
     }
 }
 
+async function logout(req, res) {
+    try {
+
+
+        // res.cookie(
+        //     "user",
+        //     {
+        //         name: newUser.name,
+        //         _id: newUser._id,
+        //         referralLink: newUser.referralLink,
+        //     },
+        //     { httpOnly: true }
+        // );
+
+        res.render('logout');
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
 async function home(req, res) {
     try {
         const userCookie = req.cookies.user;
@@ -57,10 +79,12 @@ async function home(req, res) {
 }
 
 async function profile(req, res) {
-    const userId = req.cookies.user._id;
+    const userId = req.cookies?.user?._id;
 
+    if (!userId) {
+        return res.redirect(`/`);
 
-
+    }
     try {
         const userDoc = await User.findById(userId);
         const referralLink = `https://always-live-yoga.onrender.com/register/${userDoc.referralLink}`;
@@ -138,10 +162,57 @@ function generateUniqueId(name) {
     return `${firstName}_${randomString}`;
 }
 
+async function login(req, res) {
+    try {
+
+
+        // res.cookie(
+        //     "user",
+        //     {
+        //         name: newUser.name,
+        //         _id: newUser._id,
+        //         referralLink: newUser.referralLink,
+        //     },
+        //     { httpOnly: true }
+        // );
+
+        res.render('login');
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
+async function userLogin(req, res) {
+    const { phone } = req.body
+    try {
+        const user = await User.findOne({ phone: phone });
+        if (user) {
+            res.cookie(
+                "user",
+                {
+                    name: user.name,
+                    _id: user._id,
+                    referralLink: user.referralLink,
+                },
+                { httpOnly: true }
+            );
+
+            return res.redirect(`profile`);
+        }
+
+        return res.redirect('login');
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
 module.exports = {
     registerUser,
     home,
     profile,
     registerWithRefrence,
     leaderboard,
+    logout,
+    login,
+    userLogin
 };
