@@ -1,10 +1,13 @@
 body {
   font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 .container {
   max-width: 800px;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   background-color: #92cec4;
 }
 header,
@@ -72,7 +75,7 @@ nav ul li a {
 
 @media screen and (max-width: 500px) {
   nav ul li a {
-    font-size: 15px;
+    font-size: 13px;
   }
 }
 
@@ -359,6 +362,7 @@ nav ul li a:hover {
   position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: -10px;
 }
 
 .header-section {
@@ -368,7 +372,7 @@ nav ul li a:hover {
 }
 
 .header-user-name {
-  font-size: 20px;
+  font-size: 15px;
   font-family: "Roboto";
   width: 150px;
   color: white;
@@ -380,15 +384,18 @@ nav ul li a:hover {
   background-color: rgb(170, 60, 128);
   border-radius: 8px;
   margin-left: auto;
-  padding: 10px;
+  padding: 4px;
+  height: 90px;
+  width: 180px;
 }
 
 .header-rank,
 .header-points {
-  font-size: 18px;
+  font-size: 17px;
   font-family: "Roboto";
   color: white;
-  margin-bottom: 4px;
+  margin-bottom: 1px;
+  text-align: center;
 }
 
 .profile-section,
@@ -398,9 +405,21 @@ nav ul li a:hover {
 .rewards-section {
   background: white;
   padding: 20px;
-  margin: 20px 0;
+  margin: 10px 0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.locked-section {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 20;
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
 }
 
 .profile-main {
@@ -418,6 +437,10 @@ nav ul li a:hover {
   color: #444;
 }
 
+.locked {
+  opacity: 0.5;
+}
+
 .common-button {
   background-color: #007bff;
   color: white;
@@ -427,6 +450,22 @@ nav ul li a:hover {
   cursor: pointer;
   transition: background-color 0.3s;
   margin: 5px 0;
+}
+
+.whatsapp-button {
+  background-color: transparent;
+  border-width: 0px;
+  cursor: pointer;
+  outline: none;
+  background-color: whitesmoke;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.whatsapp-icon {
+  color: green;
+  font-size: 22px;
 }
 
 .common-button:hover {
@@ -493,14 +532,15 @@ nav ul li a:hover {
 
 .shortcut-options-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
-
+/*
 .shortcut-link {
   display: inline-block;
   margin-right: 10px;
   padding: 10px;
-  background-color: #007bff;
+  background-color: rgb(226, 129, 179);
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -508,8 +548,8 @@ nav ul li a:hover {
 }
 
 .shortcut-link:hover {
-  background-color: #0056b3;
-}
+  background-color: rgb(170, 60, 128);
+}*/
 
 .attendance-heading {
   color: #0d4056;
@@ -520,7 +560,8 @@ nav ul li a:hover {
   margin-bottom: 10px;
 }
 
-.invite-friend-button {
+.invite-friend-button,
+.invite-friend-button-locked {
   background-color: #007bff;
 }
 
@@ -553,6 +594,8 @@ nav ul li a:hover {
   background-color: #ffffff;
   color: #0d4056;
   padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -571,6 +614,17 @@ nav ul li a:hover {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  .header-rank,
+  .header-points {
+    font-size: 14px;
+  }
+
+  .header-rank-container {
+    padding: 4px;
+    height: auto;
+    width: 160px;
+  }
+
   .verify-account-heading,
   .share-and-win-heading,
   .shortcuts-heading,
@@ -595,11 +649,11 @@ nav ul li a:hover {
   .referal-link-input {
     padding: 8px;
   }
-
+  /*
   .shortcut-link {
     padding: 8px;
     font-size: 0.875rem;
-  }
+  }*/
 }
 .profile-section,
 .share-and-win-section,
@@ -607,7 +661,7 @@ nav ul li a:hover {
 .attendance-section,
 .rewards-section {
   padding: 20px;
-  margin: 20px 0;
+  margin: 10px 0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -627,6 +681,7 @@ h2 {
 }
 
 /* Responsive Styles */
+/*
 @media (max-width: 768px) {
   h2 {
     font-size: 1.25rem;
@@ -635,6 +690,31 @@ h2 {
   .common-button {
     padding: 8px 16px;
   }
+}*/
+
+.shortcut-link {
+  height: 60px;
+  width: 60px;
+  padding: 0px;
+  margin: 5px;
+  background-color: transparent;
+}
+
+.shortcut-img {
+  height: 100%;
+  width: 100%;
+}
+
+.side-bar-open-btn {
+  padding: 10px;
+}
+
+.blur-style {
+  filter: blur(4px);
+}
+
+.rewards-section {
+  display: none;
 }
 
 /*leaderboard and form*/

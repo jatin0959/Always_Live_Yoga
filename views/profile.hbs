@@ -15,8 +15,10 @@
   </head>
 
   <body>
+    
 
     <div class="container profile-main">
+
       
       <div class="sidebar hidden">
         <button class="close-btn">CLOSE</button>
@@ -37,9 +39,10 @@
           <a href="#">Terms of Use</a>
         </div>
       </div>
-      <header class="header">
+     
+     <header class="header">
         <div class="header-section">
-        <button id="openSidebarBtn"><i
+        <button id="openSidebarBtn" class="side-bar-open-btn"><i
             class="fa-solid fa-bars menu-icon"
           ></i></button>
         <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
@@ -54,21 +57,16 @@
             <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a></li>
           {{! <li><a href="/referral">Referral</a></li> }}
           <li></i>
-            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
+            <a href="/leaderboard/{{user.referralLink}}" ><i class="fa-solid fa-gift" style="color:white;"></i>Leaderboard</a></li>
           <li></i>
             <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a></li>
 
         </ul>
       </nav>
       </header>
-
       
       <main>
-        <section class="profile-section">
-          <h2 class="verify-account-heading">Verify your account through
-            WhatsApp</h2>
-          <button id="verifyBtn" class="verify-button">Verify my account</button>
-        </section>
+        
         <section class="share-and-win-section">
           <h2 class="share-and-win-heading">Share & Win</h2>
           <ol class="share-instructions-container">
@@ -87,27 +85,34 @@
             class="referal-link-input"
           />
           <button onclick="copyReferralLink()" class="copy-button">Copy</button>
+          <button onclick="shareOnWhatsApp()" class="whatsapp-button"><i class="fa-brands fa-whatsapp whatsapp-icon"></i></button>
+          <!--
           <button
             onclick="shareOnWhatsApp()"
             class="share-whatsapp-button"
           >Share on WhatsApp</button>
+          -->
 
         </section>
         <section class="shortcuts-section">
           <h2 class="shortcuts-heading">Quick Shortcuts</h2>
           <div class="shortcut-options-container">
-            <a href="#" class="shortcut-link">Free PDF</a>
-            <a href="#" class="shortcut-link">Batch Timings</a>
-            <a href="#" class="shortcut-link">Join Class</a>
-            <a href="#" class="shortcut-link">FAQ</a>
+            <a href="#" class="shortcut-link"><img src = "https://res.cloudinary.com/daxizvsge/image/upload/v1719902804/pdf_gw1vh1.png" alt = "free-pdf-img" class="shortcut-img" /></a>
+            <a href="#" class="shortcut-link"><img src = "https://res.cloudinary.com/daxizvsge/image/upload/v1719902804/clock_cwzulh.png" alt = "clock-img" class="shortcut-img" /></a>
+            <a href="#" class="shortcut-link"><img src = "https://res.cloudinary.com/daxizvsge/image/upload/v1719902804/youtube_bratel.png" alt = "youtube-img" class="shortcut-img" /></a>
+            <a href="#" class="shortcut-link"><img src = "https://res.cloudinary.com/daxizvsge/image/upload/v1719902804/faq_mavbdm.png" alt = "faq-img" class="shortcut-img" /></a>
           </div>
         </section>
-        <section class="attendance-section">
-          <h2 class="attendance-heading">Track Your Attendance</h2>
-          <p class="attendance-days">Total Active Days: 0 Days</p>
-          <button class="invite-friend-button">Invite 1 friend to UNLOCK</button>
+        <section class="attendance-section" >
+          <h2 class="attendance-heading" >Track Your Attendance</h2>
+          <section class="locked-section" id = "lockedSection">
+            <i class="fa-solid fa-lock"></i>
+            <button class="invite-friend-button" onclick = "removeInviteFriendLock()">Invite 1 friend to UNLOCK</button>
+          </section>
+          <p class="attendance-days blur-style" id = "attendanceDays" >Total Active Days: 0 Days</p>
+          <button class="invite-friend-button-locked blur-style" id = "friendUnlockBtn" >Invite 1 friend to UNLOCK</button>
         </section>
-        <section class="rewards-section">
+        <section class="rewards-section" id = "rewardsSection">
           <h2 class="rewards-heading">Rewards on Friends Joining</h2>
           <p class="rank-info">Your Rank: {{user.rank}}</p>
           <p class="refer-info">5 Days Left to refer</p>
@@ -150,7 +155,16 @@
       sidebar.classList.add('visible'); }); closeBtn.addEventListener('click',
       function () { sidebar.classList.remove('visible');
       sidebar.classList.add('hidden'); }); });
-
+      function removeInviteFriendLock() {
+        const lockedSectionEl = document.getElementById("lockedSection");
+        const rewardsSectionEl = document.getElementById("rewardsSection");
+        lockedSectionEl.style.display="none";
+        rewardsSectionEl.style.display = "block";
+        const attendanceDaysEl = document.getElementById("attendanceDays");
+        const friendUnlockBtnEl = document.getElementById("friendUnlockBtn");
+        attendanceDaysEl.classList.remove("blur-style");
+        friendUnlockBtnEl.classList.remove("blur-style");
+      }
     </script>
   </body>
 
