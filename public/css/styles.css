@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   box-sizing: border-box;
@@ -6,10 +10,17 @@ body {
 }
 .container {
   max-width: 800px;
-  margin: auto;
+  margin: 0px;
   padding: 10px;
   background-color: #92cec4;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    min-width: 100%;
+  }
+}
+
 header,
 main,
 footer {
@@ -379,23 +390,26 @@ nav ul li a:hover {
 }
 
 .header-rank-container {
-  display: flex;
+  /*display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;*/
   background-color: rgb(170, 60, 128);
   border-radius: 8px;
   margin-left: auto;
-  padding: 4px;
-  height: 90px;
+  height: 50px;
   width: 180px;
+  padding: 4px;
 }
 
 .header-rank,
 .header-points {
-  font-size: 17px;
+  font-size: 15px;
   font-family: "Roboto";
   color: white;
   margin-bottom: 1px;
   text-align: center;
+  margin-top: 0px;
 }
 
 .profile-section,
@@ -594,7 +608,6 @@ nav ul li a:hover {
   background-color: #ffffff;
   color: #0d4056;
   padding: 20px;
-  margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -775,12 +788,21 @@ form button {
   padding: 12px;
   border: none;
   border-radius: 5px;
-  background-color: #92cec4;
+  background-color: rgb(226, 129, 179);
   color: #0d4056;
   font-weight: 600;
   font-size: 1em;
   cursor: pointer;
 }
+
+form button::before {
+  background-color: rgb(226, 129, 179);
+}
+
+form button::after {
+  background-color: rgb(170, 60, 128);
+}
+
 form button:hover {
   background-color: #c65b92;
   color: #ffffff;

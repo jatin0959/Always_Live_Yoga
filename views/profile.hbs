@@ -11,15 +11,18 @@
     ></script>
     <style>
       nav { position: sticky; }
+
+      .container {
+        background-color: white;
+        padding: 0px;
+      }
     </style>
   </head>
 
   <body>
     
 
-    <div class="container profile-main">
-
-      
+    <div class="container">
       <div class="sidebar hidden">
         <button class="close-btn">CLOSE</button>
         <div class="profile-section">
@@ -48,6 +51,7 @@
         <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
         <div class="header-rank-container">
           <p class="header-rank">Rank: {{user.rank}}</p>
+
           <p class="header-points">Karma Points: {{user.karmaPoints}}</p>
         </div>
         </div>
@@ -65,7 +69,7 @@
       </nav>
       </header>
       
-      <main>
+      <main class = "profile-main" style = "padding:10px;padding-top:0px;">
         
         <section class="share-and-win-section">
           <h2 class="share-and-win-heading">Share & Win</h2>
@@ -131,11 +135,12 @@
             <button class="invite-friend-button">Invite 1 Friend</button>
           </div>
         </section>
-      </main>
-      <footer class="profile-footer">
+        <footer class="profile-footer">
         <h2 class="profile-footer-heading">Invite & Win</h2>
         <p class="profile-footer-description">Yoga Voucher for up to 12 Months</p>
       </footer>
+      </main>
+      
       
     </div>
 
