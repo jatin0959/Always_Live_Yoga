@@ -1,0 +1,172 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+  <style>
+    nav {
+      position: sticky;
+    }
+
+    .container {
+      background-color: white;
+      padding: 0px;
+    }
+        h1.header-user-name {
+      font-size: 12px; /* Base font size for larger screens */
+      font-family: "Roboto";
+      width: 150px;
+      color: white;
+      margin-left:-10px;
+    }
+
+    /* Media query for smaller screens */
+    @media screen and (max-width: 768px) {
+      h1.header-user-name {
+        font-size: 12px; /* Adjust this value for your desired font size on smaller screens */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="container">
+    <div class="sidebar hidden">
+      <button class="close-btn">CLOSE</button>
+      <div class="profile-section">
+        <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+        <h2>{{user.name}}</h2>
+     
+      </div>
+      <div class="qr-section">
+        <h3>Personal Invite QR Code</h3>
+        <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+       
+        <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+       <button class="" style="background-color: green; border: 1px solid black; color: white; " onclick="shareOnWhatsApp()">Share</button>
+      </div>
+      <div class="links-section">
+        <a href="#">FAQs</a>
+        <a href="/logout">Logout</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="header-section">
+        <button id="openSidebarBtn" class="side-bar-open-btn"><i class="fa-solid fa-bars menu-icon"></i></button>
+        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+        <div class="header-rank-container">
+          <p class="header-rank">Rank: {{data.loggedInUserObj.rank}}</p>
+
+          <p class="header-points">Reward Points: {{user.karmaPoints}}</p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
+          </li>
+          {{! <li><a href="/referral">Referral</a></li> }}
+          <li></i>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
+                style="color:white;"></i>Leaderboard</a>
+          </li>
+          <li></i>
+            <a href="/resources"><i class="fa-solid fa-bars" style="color:white;"></i>Resources</a>
+          </li>
+          <li></i>
+            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a>
+          </li>
+
+        </ul>
+      </nav>
+    </header>
+
+     <div class="container-leaderboard">
+      <h1 class="container-main-heading">Leaderboard</h1>
+
+
+      <table class="leaderboard">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data.topUsers}}
+          <tr>
+            <td>
+              <span class="rank-badge 
+                            {{#if @first}}gold
+                            {{else if (eq @index 1)}}silver
+                            {{else if (eq @index 2)}}bronze
+                            {{else}}default
+                            {{/if}}">
+                {{addOne @index}}
+              </span>
+            </td>
+            <td>{{this.name}}</td>
+            <td><img class="kp-token" src="https://assets.habit.yoga/freeyoga/points_coin.png" /> {{this.karmaPoints}}
+              KP</td>
+          </tr>
+          {{/each}}
+          {{#if data.loggedInUserObj}}
+          <tr class="logged-in-user">
+            <td>{{data.loggedInUserObj.rank}}</td>
+            <td>{{data.loggedInUserObj.name}}</td>
+            <td>{{data.loggedInUserObj.karmaPoints}} KP</td>
+          </tr>
+          {{/if}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
+
+ <script>
+    function copyReferralLink() {
+      var copyText =
+        document.getElementById("referralLink"); copyText.select();
+      document.execCommand("copy"); alert("Referral link copied: " +
+        copyText.value);
+    } function shareOnWhatsApp() {
+      var link =
+        document.getElementById("referralLink").value; var whatsappUrl =
+          `https://wa.me/?text=${encodeURIComponent(link)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      const openBtn
+        = document.getElementById('openSidebarBtn'); const closeBtn =
+          document.querySelector('.sidebar .close-btn'); const sidebar =
+            document.querySelector('.sidebar'); openBtn.addEventListener('click',
+              function () {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('visible');
+              }); closeBtn.addEventListener('click',
+                function () {
+                  sidebar.classList.remove('visible');
+                  sidebar.classList.add('hidden');
+                });
+    });
+    function removeInviteFriendLock() {
+      const lockedSectionEl = document.getElementById("lockedSection");
+      const rewardsSectionEl = document.getElementById("rewardsSection");
+      lockedSectionEl.style.display = "none";
+      rewardsSectionEl.style.display = "block";
+      const attendanceDaysEl = document.getElementById("attendanceDays");
+      const friendUnlockBtnEl = document.getElementById("friendUnlockBtn");
+      attendanceDaysEl.classList.remove("blur-style");
+      friendUnlockBtnEl.classList.remove("blur-style");
+    }
+  </script>

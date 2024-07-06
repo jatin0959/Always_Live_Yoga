@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+    <style>
+    .container {
+      background-color: white;
+      padding: 0px;
+      width:100%;
+    }
+    *
+    {
+        overflow-x: hidden;
+    }
+    </style>
+</head>
+
+<body>
+      <div class="container">
+    <div class="sidebar hidden">
+      <button class="close-btn">CLOSE</button>
+      <div class="profile-section">
+        <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+        <h2>{{user.name}}</h2>
+     
+      </div>
+      <div class="qr-section">
+        <h3>Personal Invite QR Code</h3>
+        <img src="{{qrCodeDataUrl}}" alt="QR Code" />
+       
+        <p>Ask your friends to scan and gift 21 Days of FREE ONLINE YOGA</p>
+       <button class="" style="background-color: green; border: 1px solid black; color: white; " onclick="shareOnWhatsApp()">Share</button>
+      </div>
+      <div class="links-section">
+        <a href="#">FAQs</a>
+        <a href="/logout">Logout</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+
+    <header class="header" >
+      <div class="header-section">
+        <button id="openSidebarBtn" class="side-bar-open-btn"><i class="fa-solid fa-bars menu-icon"></i></button>
+        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+        <div class="header-rank-container">
+          <p class="header-rank">Rank: {{user.rank}}</p>
+
+          <p class="header-points">Reward Points: {{user.karmaPoints}}</p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
+          </li>
+          {{! <li><a href="/referral">Referral</a></li> }}
+          <li></i>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
+                style="color:white;"></i>Leaderboard</a>
+          </li>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-bars" style="color:white;"></i>Resources</a>
+          </li>
+          <li></i>
+            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a>
+          </li>
+
+        </ul>
+      </nav>
+    </header>
+
+      <div class="mile-stone-section" >
+            <h1 class="milestone-heading">Videos</h1>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: {{progressPercentage}}%;"></div>
+            </div>
+            <form id="generate-pdf-form">
+  <button type="submit" class="milestone-btn" id="downloadButton">Download Your Certificate</button>
+</form>
+
+<script>
+  const progressPercentage = {{progressPercentage}}; // Replace with your value access
+  const downloadButton = document.getElementById("downloadButton");
+  if (progressPercentage > 85) {
+    downloadButton.style.display = "block";
+  } else {
+    downloadButton.style.display = "none";
+  }
+</script>
+            <div class="video-list">
+                {{#each videos}}
+                <div class="video-item {{#if this.isLocked}}locked{{/if}}" data-video-id="{{this.id}}">
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{this.id}}?controls=0" title="{{this.title}}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                    <h3>{{this.title}}</h3>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+  </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Handle PDF generation form submission
+            document.getElementById('generate-pdf-form').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const name = formData.get('name');
+                const response = await fetch('/generate-pdf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'certificate.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                } else {
+                    alert('Error generating PDF');
+                }
+            });
+
+            // Handle sidebar open/close
+            const openBtn = document.getElementById('openSidebarBtn');
+            const closeBtn = document.querySelector('.sidebar .close-btn');
+            const sidebar = document.querySelector('.sidebar');
+
+            openBtn.addEventListener('click', function () {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('visible');
+            });
+
+            closeBtn.addEventListener('click', function () {
+                sidebar.classList.remove('visible');
+                sidebar.classList.add('hidden');
+            });
+
+            // Debugging: Log video items
+            const videoItems = document.querySelectorAll('.video-item');
+            console.log('videoItems:', videoItems);
+
+            videoItems.forEach(videoItem => {
+                // Debugging: Log each video item
+                console.log('Attaching click listener to videoItem:', videoItem);
+                videoItem.addEventListener('click', async function () {
+                    const videoId = this.dataset.videoId;
+                    console.log('click on video id:', videoId);  // Debugging: Log click event
+
+                    const response = await fetch(`/update-accessed-video`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ videoId })
+                    });
+
+                    if (response.ok) {
+                        // Update the progress bar
+                        const { progressPercentage } = await response.json();
+                        document.querySelector('.progress-bar').style.width = progressPercentage + '%';
+                    } else {
+                        alert('Error updating accessed video');
+                    }
+                });
+            });
+
+            // Additional listener for iframes
+            const iframes = document.querySelectorAll('.video-item iframe');
+            iframes.forEach(iframe => {
+                // Debugging: Log each iframe
+                console.log('Attaching click listener to iframe:', iframe);
+                iframe.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    const videoItem = this.closest('.video-item');
+                    if (videoItem) {
+                        videoItem.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

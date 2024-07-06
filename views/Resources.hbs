@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/css/styles.css" />
+      <script src="https://kit.fontawesome.com/f9df02bf03.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+       <header class="header" >
+      <div class="header-section">
+        <button id="openSidebarBtn" class="side-bar-open-btn"><i class="fa-solid fa-bars menu-icon"></i></button>
+        <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
+        <div class="header-rank-container">
+          <p class="header-rank">Rank: {{user.rank}}</p>
+
+          <p class="header-points">Reward Points: {{user.karmaPoints}}</p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
+          </li>
+          {{! <li><a href="/referral">Referral</a></li> }}
+          <li></i>
+            <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
+                style="color:white;"></i>Leaderboard</a>
+          </li>
+          <li></i>
+            <a href="/profile"><i class="fa-solid fa-bars" style="color:white;"></i>Resources</a>
+          </li>
+          <li></i>
+            <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a>
+          </li>
+
+        </ul>
+      </nav>
+    </header>
+
+    <h1>This is resources Page</h1>
+</body>
+</html>

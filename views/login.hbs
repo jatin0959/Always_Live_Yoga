@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        * {
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container"
+        style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; margin-top: -15%;">
+        <h1 style="text-align: center;">Login</h1>
+        <form action="/login" method="POST" style="display: flex; flex-direction: column; align-items: center;">
+            <input style="width: 300px; margin-bottom: 10px;" type="text" name="phone" id="phone" placeholder="phone"
+                required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const phoneInput = document.getElementById('phone');
+            const countryCode = '+91';
+            phoneInput.value = countryCode;
+
+            phoneInput.addEventListener('input', () => {
+                if (!phoneInput.value.startsWith(countryCode)) {
+                    phoneInput.value = countryCode + phoneInput.value.slice(countryCode.length);
+                }
+            });
+
+            phoneInput.addEventListener('focus', () => {
+                if (phoneInput.value === countryCode) {
+                    phoneInput.setSelectionRange(countryCode.length, countryCode.length);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
