@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,33 +19,27 @@
 
     h1.header-user-name {
       font-size: 12px;
-      /* Base font size for larger screens */
       font-family: "Roboto";
       width: 150px;
       color: white;
       margin-left: -10px;
     }
 
-    /* Media query for smaller screens */
     @media screen and (max-width: 768px) {
       h1.header-user-name {
         font-size: 12px;
-        /* Adjust this value for your desired font size on smaller screens */
       }
     }
   </style>
 </head>
 
 <body>
-
-
   <div class="container">
     <div class="sidebar hidden">
       <button class="close-btn">CLOSE</button>
       <div class="profile-section">
-        <img src="assets\icon-5359553_640.webp" alt="Profile Picture" />
+        <img src="assets/icon-5359553_640.webp" alt="Profile Picture" />
         <h2>{{user.name}}</h2>
-
       </div>
       <div class="qr-section">
         <h3>Personal Invite QR Code</h3>
@@ -66,57 +61,44 @@
         <h1 class="header-user-name">Namaste, {{user.name}} ji!</h1>
         <div class="header-rank-container">
           <p class="header-rank">Rank: {{user.rank}}</p>
-
-
           <p class="header-points">Reward Points: {{user.karmaPoints}}</p>
         </div>
       </div>
       <nav>
         <ul>
-          <li></i>
+          <li>
             <a href="/profile"><i class="fa-solid fa-house" style="color:white;"></i>Home</a>
           </li>
-          {{! <li><a href="/referral">Referral</a></li> }}
-          <li></i>
+          <li>
             <a href="/leaderboard/{{user.referralLink}}"><i class="fa-solid fa-gift"
                 style="color:white;"></i>Leaderboard</a>
           </li>
-          <li></i>
+          <li>
             <a href="/Resources"><i class="fa-solid fa-bars" style="color:white;"></i>Resources</a>
           </li>
-          <li></i>
+          <li>
             <a href="/videos/{{user._id}}"><i class="fas fa-flag" style="color:white;"></i>MileStones</a>
           </li>
-
         </ul>
       </nav>
     </header>
 
     <main class="profile-main" style="padding:10px;padding-top:0px;">
-
       <section class="share-and-win-section">
         <h2 class="share-and-win-heading">Share & Win</h2>
         <ol class="share-instructions-container">
-          <li class="share-instruction-item">Click on the Copy Button below to
-            copy your personalized referral link.</li>
-          <li class="share-instruction-item">Share it with your Friends /
-            Family members.</li>
-          <li class="share-instruction-item">Earn Reward Points when they join
-            through your link.</li>
+          <li class="share-instruction-item">Click on the Copy Button below to copy your personalized referral link.
+          </li>
+          <li class="share-instruction-item">Share it with your Friends / Family members.</li>
+          <li class="share-instruction-item">Earn Reward Points when they join through your link.</li>
         </ol>
         <input type="text" value="https://always-live-yoga.onrender.com/register/{{user.referralLink}}"
           id="referralLink" readonly class="referal-link-input" />
         <button onclick="copyReferralLink()" class="copy-button">Copy</button>
         <button onclick="shareOnWhatsApp()" class="whatsapp-button"><i
             class="fa-brands fa-whatsapp whatsapp-icon"></i></button>
-        <!--
-          <button
-            onclick="shareOnWhatsApp()"
-            class="share-whatsapp-button"
-          >Share on WhatsApp</button>
-          -->
-
       </section>
+
       <section class="shortcuts-section">
         <h2 class="shortcuts-heading">Quick Shortcuts</h2>
         <div class="shortcut-options-container">
@@ -134,16 +116,23 @@
               class="shortcut-img" /></a>
         </div>
       </section>
+
       <section class="attendance-section">
         <h2 class="attendance-heading">Track Your Attendance</h2>
         <section class="locked-section" id="lockedSection">
           <i class="fa-solid fa-lock"></i>
           <button class="invite-friend-button" onclick="removeInviteFriendLock()">Invite 1 friend to UNLOCK</button>
         </section>
-        <p class="attendance-days blur-style" id="attendanceDays">Total Active Days: 0 Days</p>
-        <button class="invite-friend-button-locked blur-style" id="friendUnlockBtn">Invite 1 friend to UNLOCK</button>
+
+        <button style="background-color: aqua;" id="markAttendance" style="display: none;">Mark Today's
+          Attendance</button>
+        <p class="attendance-days" id="attendanceDays">Total Active Days: 0 Days</p>
+
       </section>
-      <section class="rewards-section" id="rewardsSection">
+
+
+
+      <section class="rewards-section" id="rewardsSection" style="display: block;">
         <h2 class="rewards-heading">Rewards on Friends Joining</h2>
         <p class="rank-info">Your Rank: {{user.rank}}</p>
         <p class="refer-info">5 Days Left to refer</p>
@@ -162,51 +151,103 @@
           <button class="invite-friend-button">Invite 1 Friend</button>
         </div>
       </section>
+
       <footer class="profile-footer">
         <h2 class="profile-footer-heading">Invite & Win</h2>
         <p class="profile-footer-description">Yoga Voucher for up to 12 Months</p>
       </footer>
     </main>
-
-
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const lockedSection = document.getElementById("lockedSection");
+      const attendanceDays = document.getElementById("attendanceDays");
+      const markAttendance = document.getElementById("markAttendance");
+      const userKarmaPoints = {{ user.karmaPoints }}
+
+
+      if (userKarmaPoints >= 10) {
+      lockedSection.style.display = "none";
+      markAttendance.style.display = "block";
+      attendanceDays.classList.remove("blur-style");
+      markAttendance.classList.remove("blur-style");
+    } else {
+      lockedSection.style.display = "block";
+      markAttendance.classList.add("blur-style");
+      attendanceDays.classList.add("blur-style");
+    }
+
+    // Fetch attendance count on initial render
+    try {
+      const countResponse = await fetch(`/attendance/count/{{user._id}}`);
+      print('ddddd')
+      console.log('demo++++++', countResponse)
+      const countData = await countResponse.json();
+      attendanceDays.textContent = `Total Active Days: ${countData.attendanceCount} Days`;
+    } catch (error) {
+      console.error('Error fetching attendance count:', error);
+    }
+
+    markAttendance.addEventListener('click', async function () {
+      try {
+        const response = await fetch('/attendance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userId: '{{user._id}}' })
+        });
+
+        if (response.ok) {
+          const countResponse = await fetch(`/attendance/count/{{user._id}}`);
+          const countData = await countResponse.json();
+          attendanceDays.textContent = `Total Active Days: ${countData.attendanceCount} Days`;
+        } else {
+          console.error('Error marking attendance:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+    });
+
     function copyReferralLink() {
-      var copyText =
-        document.getElementById("referralLink"); copyText.select();
-      document.execCommand("copy"); alert("Referral link copied: " +
-        copyText.value);
-    } function shareOnWhatsApp() {
-      var link =
-        document.getElementById("referralLink").value; var whatsappUrl =
-          `https://wa.me/?text=${encodeURIComponent(link)}`;
+      var copyText = document.getElementById("referralLink");
+      copyText.select();
+      document.execCommand("copy");
+      alert("Referral link copied: " + copyText.value);
+    }
+
+    function shareOnWhatsApp() {
+      var link = document.getElementById("referralLink").value;
+      var whatsappUrl = `https://wa.me/?text=${encodeURIComponent(link)}`;
       window.open(whatsappUrl, '_blank');
     }
-    document.addEventListener('DOMContentLoaded', function () {
-      const openBtn
-        = document.getElementById('openSidebarBtn'); const closeBtn =
-          document.querySelector('.sidebar .close-btn'); const sidebar =
-            document.querySelector('.sidebar'); openBtn.addEventListener('click',
-              function () {
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('visible');
-              }); closeBtn.addEventListener('click',
-                function () {
-                  sidebar.classList.remove('visible');
-                  sidebar.classList.add('hidden');
-                });
-    });
+
     function removeInviteFriendLock() {
       const lockedSectionEl = document.getElementById("lockedSection");
-      const rewardsSectionEl = document.getElementById("rewardsSection");
       lockedSectionEl.style.display = "none";
-      rewardsSectionEl.style.display = "block";
+
       const attendanceDaysEl = document.getElementById("attendanceDays");
-      const friendUnlockBtnEl = document.getElementById("friendUnlockBtn");
       attendanceDaysEl.classList.remove("blur-style");
-      friendUnlockBtnEl.classList.remove("blur-style");
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.querySelector('.sidebar .close-btn');
+      const sidebar = document.querySelector('.sidebar');
+
+      openBtn.addEventListener('click', function () {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('visible');
+      });
+
+      closeBtn.addEventListener('click', function () {
+        sidebar.classList.remove('visible');
+        sidebar.classList.add('hidden');
+      });
+    });
   </script>
 </body>
 

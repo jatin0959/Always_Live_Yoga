@@ -8,6 +8,7 @@ const path = require('path');
 const videoRouter = require('./routes.js/videoRoutes');
 const cookieParser = require('cookie-parser');
 const puppeteer = require('puppeteer');
+const attendanceRouter = require('./routes.js/attendance');
 
 const app = express();
 
@@ -143,6 +144,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(userRouter);
 app.use(videoRouter);
+app.use(attendanceRouter)
 
 // Start the server
 const PORT = process.env.PORT || 3000;
